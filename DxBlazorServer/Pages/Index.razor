@@ -1,0 +1,34 @@
+﻿@page "/"
+@using System.Globalization
+
+<h2 class="pb-2">Blazor Components</h2>
+<p class="pb-2 mw-1100">
+    Our Blazor UI components will help you create intuitive and highly-refined user experiences for both Blazor Server (ASP.NET Core) and Blazor WebAssembly hosting models.
+</p>
+
+<h4>Test Time Picker</h4>
+
+<DxTimeEdit @bind-Time="@MyTimeSpan"
+            CssClass="cw-320"
+            Mask="DateTimeMask.ShortTime">
+    <DxDateTimeMaskProperties Culture="MaskCultureInfo" CaretMode="MaskCaretMode.Advancing" />
+</DxTimeEdit>
+
+<DxMaskedInput @bind-Value="@MyDate"
+               CssClass="cw-320"
+               Mask="DateTimeMask.ShortTime">
+    <DxDateTimeMaskProperties Culture="MaskCultureInfo" CaretMode="MaskCaretMode.Advancing" />
+</DxMaskedInput>
+
+<span>@MyTimeSpan</span>
+<br />
+<span>@MyDate</span>
+
+@code
+{
+
+    public DateTime MyDate = DateTime.Now;
+    
+    public TimeSpan MyTimeSpan = new TimeSpan(DateTime.Now.Hour,DateTime.Now.Minute,0);
+    CultureInfo MaskCultureInfo = CultureInfo.GetCultureInfo("de-DE");
+}
