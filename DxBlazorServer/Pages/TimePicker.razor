@@ -1,0 +1,49 @@
+﻿@page "/timepicker"
+@using System.Globalization
+
+<h3>TimePicker</h3>
+
+
+Entry: 
+<DxTimeEdit Time="@EntryTime"
+                   Mask="@DateTimeMask.ShortTime"
+                  TimeChanged="( (TimeSpan newValue, MarkType mark) => OnTimeChanged(newValue, MarkType.EXIT)  )">
+    <DxDateTimeMaskProperties Culture="MaskCultureInfo" CaretMode="MaskCaretMode.Advancing" />
+</DxTimeEdit>
+
+Exit: 
+<DxTimeEdit Time="@ExitTime"
+                  Mask="@DateTimeMask.ShortTime"
+                  TimeChanged="( (TimeSpan newValue, MarkType mark) => OnTimeChanged(newValue, MarkType.EXIT)  )">
+    <DxDateTimeMaskProperties Culture="MaskCultureInfo" CaretMode="MaskCaretMode.Advancing" />
+</DxTimeEdit>
+
+Entry = <span>@EntryTime</span>
+<br />
+Exit = <span>@ExitTime</span>
+<br />
+Delta = <span>@Delta</span>
+
+@code
+{
+    enum MarkType
+    {
+        ENTRY,
+        EXIT
+    }
+
+    public TimeSpan EntryTime { get; set; } = new TimeSpan(9, 0, 0);
+    public TimeSpan ExitTime { get; set; } = new TimeSpan(17, 0, 0);
+    public TimeSpan Delta => ExitTime - EntryTime;
+
+    public TimeSpan MyTimeSpan = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, 0);
+    CultureInfo MaskCultureInfo = CultureInfo.GetCultureInfo("it-IT");
+
+    void OnTimeChanged(TimeSpan newValue, MarkType mark)
+    {
+        if (mark == MarkType.ENTRY)
+            EntryTime = newValue;
+        else
+            ExitTime = newValue;
+    }
+}
