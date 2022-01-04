@@ -4,17 +4,17 @@
 <h3>TimePicker</h3>
 
 
-Entry: 
+Entry:
 <DxTimeEdit Time="@EntryTime"
-                   Mask="@DateTimeMask.ShortTime"
-                  TimeChanged="( (TimeSpan newValue, MarkType mark) => OnTimeChanged(newValue, MarkType.EXIT)  )">
+            Mask="@DateTimeMask.ShortTime"
+            TimeChanged="( (TimeSpan newValue, MarkType mark) => OnTimeChanged(newValue, MarkType.ENTRY)  )">
     <DxDateTimeMaskProperties Culture="MaskCultureInfo" CaretMode="MaskCaretMode.Advancing" />
 </DxTimeEdit>
 
-Exit: 
+Exit:
 <DxTimeEdit Time="@ExitTime"
-                  Mask="@DateTimeMask.ShortTime"
-                  TimeChanged="( (TimeSpan newValue, MarkType mark) => OnTimeChanged(newValue, MarkType.EXIT)  )">
+            Mask="@DateTimeMask.ShortTime"
+            TimeChanged="( (TimeSpan newValue, MarkType mark) => OnTimeChanged(newValue, MarkType.EXIT)  )">
     <DxDateTimeMaskProperties Culture="MaskCultureInfo" CaretMode="MaskCaretMode.Advancing" />
 </DxTimeEdit>
 
@@ -41,9 +41,15 @@ Delta = <span>@Delta</span>
 
     void OnTimeChanged(TimeSpan newValue, MarkType mark)
     {
-        if (mark == MarkType.ENTRY)
-            EntryTime = newValue;
-        else
-            ExitTime = newValue;
-    }
+        switch (mark)
+        {
+            case MarkType.ENTRY:
+                EntryTime = newValue;
+                break;
+            case MarkType.EXIT:
+                ExitTime = newValue;
+                break;
+            //...
+        }
+        // SaveDb();
 }
