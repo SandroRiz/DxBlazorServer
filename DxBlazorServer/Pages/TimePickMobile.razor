@@ -1,0 +1,34 @@
+﻿@page "/timepickermobile"
+
+@using System.Globalization
+
+<h3>TimePicker</h3>
+
+<DxFormLayout>
+    <DxFormLayoutItem Caption="Entry" ColSpanMd="6" ColSpanXs="12">
+        <DxTimeEdit @bind-Time="@EntryTime"
+                    Mask="@DateTimeMask.ShortTime">
+            <DxDateTimeMaskProperties Culture="MaskCultureInfo" CaretMode="MaskCaretMode.Advancing" />
+        </DxTimeEdit>
+    </DxFormLayoutItem>
+
+   
+
+    <DxFormLayoutItem Caption="Exit" ColSpanMd="6" ColSpanXs="12">
+        <DxTimeEdit Mask="@DateTimeMask.ShortTime"
+                    @bind-Time="@ExitTime">
+            <DxDateTimeMaskProperties Culture="MaskCultureInfo" CaretMode="MaskCaretMode.Advancing" />
+        </DxTimeEdit>
+    </DxFormLayoutItem>
+</DxFormLayout>
+
+Entry = <span>@EntryTime</span><br />
+Exit = <span>@ExitTime</span><br />
+Delta = <span>@Delta</span><br />
+@code {
+    public TimeSpan EntryTime { get; set; } = new TimeSpan(09, 0, 0);
+    public TimeSpan ExitTime { get; set; } = new TimeSpan(16, 0, 0);
+    public TimeSpan Delta => ExitTime - EntryTime;
+   
+    CultureInfo MaskCultureInfo = CultureInfo.GetCultureInfo("it-IT");
+}
