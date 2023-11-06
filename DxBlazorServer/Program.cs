@@ -14,6 +14,8 @@ builder.Services.Configure<DevExpress.Blazor.Configuration.GlobalOptions>(option
     options.BootstrapVersion = DevExpress.Blazor.BootstrapVersion.v5;
 });
 
+builder.Services.AddDevExpressBlazor(configure => configure.BootstrapVersion = DevExpress.Blazor.BootstrapVersion.v5);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
